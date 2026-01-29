@@ -1,5 +1,5 @@
 // Shared Authentication JavaScript for ShuleAI
-console.log('🚀 Starting to load auth-shared.js...');
+console.log("🚀 Starting to load auth-shared.js...");
 
 // API Configuration
 const AUTH_API_BASE_URL = "https://shuleaiv1.onrender.com/api";
@@ -301,19 +301,19 @@ function handleSpecialCode(
   // Define valid special codes with creation dates
   const validSpecialCodes = {
     "SPECIAL-DEMO1": {
-      created: "2026-01-27",
+      created: "2026-01-29",
       description: "Demo Access Code 1",
     },
     "SPECIAL-DEMO2": {
-      created: "2026-01-26",
+      created: "2026-01-29",
       description: "Demo Access Code 2",
     },
     "SPECIAL-TRIAL": {
-      created: "2026-01-27",
+      created: "2026-01-29",
       description: "Trial Access Code",
     },
     "SPECIAL-TEST1": {
-      created: "2026-01-27",
+      created: "2026-01-29",
       description: "Test Access Code 1",
     },
   };
@@ -1926,7 +1926,7 @@ function exploreSubject(subjectName) {
 }
 
 // Toggle Games Function - Show/Hide additional games
-console.log('📝 About to define toggleGames function...');
+console.log("📝 About to define toggleGames function...");
 function toggleGames(category) {
   console.log("🎮 toggleGames called with category:", category);
 
@@ -2045,9 +2045,9 @@ To activate this code, add it to the validSpecialCodes object in handleSpecialCo
 }
 
 // End of file - confirm everything loaded
-console.log('✅ auth-shared.js loaded completely!');
-console.log('📋 Functions defined:', {
-  'toggleGames': typeof toggleGames !== 'undefined',
-  'showQuickNotification': typeof showQuickNotification !== 'undefined',
-  'openSignInModal': typeof openSignInModal !== 'undefined'
+console.log("✅ auth-shared.js loaded completely!");
+console.log("📋 Functions defined:", {
+  toggleGames: typeof toggleGames !== "undefined",
+  showQuickNotification: typeof showQuickNotification !== "undefined",
+  openSignInModal: typeof openSignInModal !== "undefined",
 });
