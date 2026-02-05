@@ -676,24 +676,29 @@ body.modal-open {
 
 /* Plus Modal Floating Styles */
 #plusModal {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 450px;
-  max-width: calc(100vw - 40px);
-  height: auto;
-  max-height: calc(100vh - 40px);
-  background: rgba(0, 0, 0, 0.9);
-  z-index: 1000;
-  border-radius: 15px;
-  padding: 0;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  display: none !important;
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  width: 450px !important;
+  max-width: calc(100vw - 40px) !important;
+  height: auto !important;
+  max-height: calc(100vh - 40px) !important;
+  background: rgba(0, 0, 0, 0.9) !important;
+  z-index: 1000 !important;
+  border-radius: 15px !important;
+  padding: 0 !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4) !important;
   animation: plusModalSlideIn 0.3s ease;
 }
 
 #plusModal.show {
-  display: block;
+  display: block !important;
+}
+
+/* Fallback for deployment issues */
+#plusModal[style*="display: block"] {
+  display: block !important;
 }
 
 @keyframes plusModalSlideIn {

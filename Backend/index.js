@@ -38,10 +38,12 @@ app.use(express.urlencoded({ extended: true }));
 const paymentRoutes = require("./routes/payments");
 const authRoutes = require("./routes/auth");
 const tutorRoutes = require("./routes/tutors");
+const partnerRoutes = require("./routes/partners");
 
 app.use("/api/payments", paymentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/tutors", tutorRoutes);
+app.use("/api/partners", partnerRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {

@@ -198,7 +198,7 @@ router.post("/verify-code", async (req, res) => {
           description: "Demo Access Code 1",
         },
         "SPECIAL-DEMO2": {
-          created: "2026-01-26",
+          created: "2026-01-29",
           description: "Demo Access Code 2",
         },
         "SPECIAL-TRIAL": {
@@ -208,6 +208,11 @@ router.post("/verify-code", async (req, res) => {
         "SPECIAL-TEST1": {
           created: "2026-01-29",
           description: "Test Access Code 1",
+        },
+        "SPECIAL-RBK2026": {
+          created: "2026-02-05",
+          description: "RBK Partner - Unlimited Access",
+          validity: "365 days",
         },
       };
 
@@ -220,11 +225,19 @@ router.post("/verify-code", async (req, res) => {
         });
       }
 
-      // Check if special code has expired (2 days from creation)
+      // Check if special code has expired (2 days from creation, or custom validity)
       const createdDate = new Date(codeInfo.created);
-      const expiryDate = new Date(
-        createdDate.getTime() + 2 * 24 * 60 * 60 * 1000,
-      ); // 2 days
+      let expiryDate;
+
+      // Check if code has custom validity period
+      if (codeInfo.validity === "365 days") {
+        expiryDate = new Date(
+          createdDate.getTime() + 365 * 24 * 60 * 60 * 1000,
+        ); // 365 days
+      } else {
+        expiryDate = new Date(createdDate.getTime() + 2 * 24 * 60 * 60 * 1000); // 2 days (default)
+      }
+
       const now = new Date();
 
       if (now > expiryDate) {

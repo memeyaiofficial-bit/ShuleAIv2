@@ -316,6 +316,11 @@ function handleSpecialCode(
       created: "2026-01-29",
       description: "Test Access Code 1",
     },
+    "SPECIAL-RBK2026": {
+      created: "2026-02-05",
+      description: "RBK Partner - Unlimited Access",
+      validity: "365 days",
+    },
   };
 
   const codeInfo = validSpecialCodes[accessCode];
@@ -327,18 +332,24 @@ function handleSpecialCode(
     return true; // Handled
   }
 
-  // Check if code has expired (2 days from creation)
+  // Check if code has expired (2 days from creation, or custom validity)
   const createdDate = new Date(codeInfo.created);
-  const expiryDate = new Date(createdDate.getTime() + 2 * 24 * 60 * 60 * 1000); // 2 days
+  let expiryDate;
+
+  // Check if code has custom validity period
+  if (codeInfo.validity === "365 days") {
+    expiryDate = new Date(createdDate.getTime() + 365 * 24 * 60 * 60 * 1000); // 365 days
+  } else {
+    expiryDate = new Date(createdDate.getTime() + 2 * 24 * 60 * 60 * 1000); // 2 days (default)
+  }
+
   const now = new Date();
 
   if (now > expiryDate) {
-    alert(
-      `⏰ Special code "${accessCode}" has expired.\n\nIt was valid from ${createdDate.toLocaleDateString()} to ${expiryDate.toLocaleDateString()}.\n\nPlease contact admin for a new special code or use regular payment options.`,
-    );
-    submitBtn.disabled = false;
-    submitBtn.textContent = originalBtnText;
-    return true; // Handled
+    return res.status(401).json({
+      success: false,
+      message: `Special code "${accessCode}" has expired.\n\nIt was valid from ${createdDate.toLocaleDateString()} to ${expiryDate.toLocaleDateString()}.\n\nPlease contact admin for a new special code or use regular payment options.`,
+    });
   }
 
   // Calculate remaining time

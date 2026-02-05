@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RBK - ShuleAI Special Partner Access</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #2e7d4a 0%, #1e5a35 100%);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .header p {
+        font-size: 16px;
+        opacity: 0.95;
+      }
+
+      .content {
+        padding: 40px 30px;
+      }
+
+      .greeting {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      .highlight-box {
+        background: linear-gradient(135deg, #667eea15, #764ba215);
+        border-left: 5px solid #2e7d4a;
+        padding: 25px;
+        margin: 30px 0;
+        border-radius: 8px;
+      }
+
+      .code-section {
+        text-align: center;
+      }
+
+      .code-label {
+        font-size: 14px;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .access-code {
+        font-size: 36px;
+        font-weight: 700;
+        color: #2e7d4a;
+        font-family: "Courier New", monospace;
+        letter-spacing: 3px;
+        word-break: break-all;
+        padding: 15px;
+        background: #f5f5f5;
+        border-radius: 8px;
+        border: 2px solid #2e7d4a;
+        margin: 15px 0;
+        user-select: all;
+      }
+
+      .code-note {
+        font-size: 13px;
+        color: #999;
+        margin-top: 10px;
+        font-style: italic;
+      }
+
+      .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #333;
+        margin-top: 30px;
+        margin-bottom: 12px;
+        border-bottom: 2px solid #2e7d4a;
+        padding-bottom: 8px;
+      }
+
+      .steps {
+        list-style: none;
+        counter-reset: step-counter;
+      }
+
+      .steps li {
+        margin: 15px 0;
+        padding-left: 30px;
+        position: relative;
+        line-height: 1.6;
+        color: #555;
+        font-size: 15px;
+      }
+
+      .steps li:before {
+        counter-increment: step-counter;
+        content: counter(step-counter);
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #2e7d4a;
+        color: white;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .benefit-card {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #e0e0e0;
+      }
+
+      .benefit-icon {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+
+      .benefit-text {
+        font-size: 13px;
+        color: #666;
+        font-weight: 500;
+      }
+
+      .button-container {
+        text-align: center;
+        margin: 35px 0;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background: linear-gradient(135deg, #2e7d4a 0%, #1e5a35 100%);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 16px;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        box-shadow: 0 10px 25px rgba(46, 125, 74, 0.3);
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(46, 125, 74, 0.4);
+      }
+
+      .features-list {
+        margin: 20px 0;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        margin: 12px 0;
+        font-size: 15px;
+        color: #555;
+        line-height: 1.6;
+      }
+
+      .feature-check {
+        color: #2e7d4a;
+        font-weight: 700;
+        margin-right: 12px;
+        flex-shrink: 0;
+      }
+
+      .footer {
+        background: #f5f5f5;
+        padding: 30px;
+        text-align: center;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      .footer-text {
+        font-size: 13px;
+        color: #999;
+        margin: 8px 0;
+        line-height: 1.6;
+      }
+
+      .contact-info {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      .contact-link {
+        color: #2e7d4a;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .contact-link:hover {
+        text-decoration: underline;
+      }
+
+      .badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #2e7d4a, #1e5a35);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 10px 0;
+      }
+
+      @media (max-width: 600px) {
+        .header h1 {
+          font-size: 24px;
+        }
+
+        .access-code {
+          font-size: 28px;
+          letter-spacing: 2px;
+        }
+
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .content {
+          padding: 25px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>🎓 ShuleAI</h1>
+        <p>Special Partner Access - RBK</p>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Greeting -->
+        <div class="greeting">
+          <p>Dear RBK Team,</p>
+          <p style="margin-top: 12px">
+            We're thrilled to partner with you! 🌟 You now have exclusive access
+            to the entire ShuleAI platform with our premium features.
+          </p>
+        </div>
+
+        <!-- Highlight Box with Access Code -->
+        <div class="highlight-box">
+          <div class="code-section">
+            <div class="code-label">Your Special Access Code</div>
+            <div class="access-code">SPECIAL-RBK2026</div>
+            <div class="code-note">
+              Valid for 365 days from February 5, 2026
+            </div>
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div class="section-title">✨ What You Get</div>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">🎮</div>
+            <div class="benefit-text">Access to 100+ Learning Games</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">📚</div>
+            <div class="benefit-text">Complete Worksheets Library</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">👨‍🏫</div>
+            <div class="benefit-text">Professional Tutoring System</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">📊</div>
+            <div class="benefit-text">Progress Analytics & Reports</div>
+          </div>
+        </div>
+
+        <!-- How to Login -->
+        <div class="section-title">🔐 How to Login</div>
+        <ol class="steps">
+          <li>Visit <strong>https://shule.memeyai.com</strong></li>
+          <li>Click on <strong>"Sign In"</strong> button</li>
+          <li>
+            Enter your <strong>email address</strong> or
+            <strong>phone number</strong>
+          </li>
+          <li>Enter your special code: <strong>SPECIAL-RBK2026</strong></li>
+          <li>Click <strong>"Sign In"</strong> and you're in!</li>
+        </ol>
+
+        <!-- Call-to-Action Button -->
+        <div class="button-container">
+          <a href="https://shule.memeyai.com" class="cta-button"
+            >Login to ShuleAI →</a
+          >
+        </div>
+
+        <!-- Key Features -->
+        <div class="section-title">📋 Key Features Available</div>
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-check">✓</div>
+            <div>
+              <strong>Unlimited Access:</strong> Use anytime, anywhere during
+              your access period
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check">✓</div>
+            <div>
+              <strong>All Games & Content:</strong> No restrictions on learning
+              resources
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check">✓</div>
+            <div>
+              <strong>Worksheet Downloads:</strong> Print and use any worksheet
+              in PDF format
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check">✓</div>
+            <div>
+              <strong>Lesson Plans:</strong> Access complete teaching lesson
+              plans
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check">✓</div>
+            <div>
+              <strong>Assessment Tools:</strong> Use all rubrics and assessment
+              materials
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check">✓</div>
+            <div>
+              <strong>Priority Support:</strong> Get help from our support team
+            </div>
+          </div>
+        </div>
+
+        <!-- Important Notes -->
+        <div
+          class="highlight-box"
+          style="
+            background: linear-gradient(135deg, #fff3cd15, #ffc70015);
+            border-left-color: #ff9800;
+          "
+        >
+          <strong style="color: #ff9800">📝 Important:</strong>
+          <ul
+            style="
+              margin-top: 10px;
+              margin-left: 20px;
+              color: #666;
+              font-size: 14px;
+              line-height: 1.6;
+            "
+          >
+            <li>Keep your special code private and secure</li>
+            <li>Share login access only with authorized personnel</li>
+            <li>Your access is valid until February 5, 2027</li>
+            <li>
+              Contact us if you need password reset or additional accounts
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div class="contact-info">
+          <p class="footer-text"><strong>Questions or need support?</strong></p>
+          <p class="footer-text">
+            📧 Email:
+            <a href="mailto:support@shuleai.com" class="contact-link"
+              >support@shuleai.com</a
+            >
+          </p>
+          <p class="footer-text">
+            📱 WhatsApp:
+            <a href="https://wa.me/254111579473" class="contact-link"
+              >+254 111 579 473</a
+            >
+          </p>
+        </div>
+
+        <div
+          style="
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+          "
+        >
+          <p class="footer-text" style="margin: 0">
+            Thank you for partnering with ShuleAI. We're excited to help RBK
+            achieve educational excellence! 🚀
+          </p>
+          <p class="footer-text" style="margin-top: 10px; font-size: 12px">
+            © 2026 ShuleAI - Empowering Learning Through Technology
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -9,13 +9,22 @@ let currentTutorData = null;
 
 function openPlusModal() {
   const modal = document.getElementById("plusModal");
+  
+  if (!modal) {
+    console.error("❌ Plus modal element not found!");
+    return;
+  }
+  
   modal.classList.add("show");
+  modal.style.display = "block"; // Fallback for deployment issues
   showRoleSelection();
-}
 
 function closePlusModal() {
   const modal = document.getElementById("plusModal");
-  modal.classList.remove("show");
+  if (modal) {
+    modal.classList.remove("show");
+    modal.style.display = "none"; // Fallback for deployment issues
+  }
   resetPlusModal();
 }
 
@@ -38,7 +47,12 @@ function resetPlusModal() {
 
 function showRoleSelection() {
   resetPlusModal();
-  document.getElementById("roleSelectionStep").style.display = "block";
+  const roleStep = document.getElementById("roleSelectionStep");
+  if (roleStep) {
+    roleStep.style.display = "block";
+  } else {
+    console.error("❌ Role selection step not found!");
+  }
 }
 
 function selectRole(role) {
@@ -293,32 +307,80 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Calling setupFormEventListeners...");
   setupFormEventListeners();
   console.log("Setup complete!");
+
+  // Debug: Check if modal and CSS are working
+  checkModalSetup();
 });
+
+// Debug function to check modal setup
+function checkModalSetup() {
+  console.log("🔍 Checking modal setup...");
+
+  const modal = document.getElementById("plusModal");
+  if (!modal) {
+    console.error("❌ Plus modal not found in DOM!");
+    return;
+  }
+
+  console.log("✅ Plus modal found in DOM");
+
+  // Check computed styles
+  const computedStyle = window.getComputedStyle(modal);
+  console.log("🎨 Modal computed styles:", {
+    position: computedStyle.position,
+    bottom: computedStyle.bottom,
+    right: computedStyle.right,
+    display: computedStyle.display,
+    width: computedStyle.width,
+    zIndex: computedStyle.zIndex,
+  });
+
+  // Check if CSS file is loaded
+  const stylesheets = Array.from(document.styleSheets);
+  const cssFound = stylesheets.some((sheet) => {
+    try {
+      return sheet.href && sheet.href.includes("styles.css");
+    } catch (e) {
+      return false;
+    }
+  });
+
+  console.log("🎨 CSS file loaded:", cssFound);
+
+  if (!cssFound) {
+    console.error("❌ styles.css not found! Check CSS file path.");
+  }
+}
+
+// Global debug function for manual testing
+window.debugPlusModal = function () {
+  console.log("🧪 Manual Plus Modal Debug Test");
+  checkModalSetup();
+
+  const modal = document.getElementById("plusModal");
+  if (modal) {
+    console.log("🧪 Attempting to open modal manually...");
+    modal.classList.add("show");
+    modal.style.display = "block"; // Fallback
+    console.log("🧪 Modal classes:", modal.className);
+    console.log("🧪 Modal style.display:", modal.style.display);
+  }
+};
 
 // Setup form event listeners
 function setupFormEventListeners() {
-  console.log("Setting up form event listeners...");
-
   // Tutor Registration Form
   const tutorForm = document.getElementById("tutorRegistrationForm");
-  console.log("Tutor form found:", tutorForm);
-
+  
   if (tutorForm) {
-    console.log("Adding submit event listener to tutor form");
     tutorForm.addEventListener("submit", function (e) {
-      console.log("Tutor form submit event triggered!");
       e.preventDefault();
 
       clearFormErrors();
       if (validateTutorForm()) {
-        console.log("Form validation passed, submitting...");
         submitTutorRegistration();
-      } else {
-        console.log("Form validation failed");
       }
     });
-  } else {
-    console.log("Tutor form not found!");
   }
 
   // Student Request Form
@@ -337,7 +399,6 @@ function setupFormEventListeners() {
 
 // Form validation functions
 function validateTutorForm() {
-  console.log("Validating tutor form...");
   let isValid = true;
 
   // Validate required fields
@@ -347,8 +408,6 @@ function validateTutorForm() {
   const location = document.getElementById("tutorLocation").value.trim();
   const bio = document.getElementById("tutorBio").value.trim();
   const rate = document.getElementById("tutorRate").value.trim();
-
-  console.log("Form values:", { name, email, phone, location, bio, rate });
 
   if (!name) {
     showError("tutorName", "Name is required");
@@ -424,7 +483,6 @@ function validateTutorForm() {
     isValid = false;
   }
 
-  console.log("Validation result:", isValid);
   return isValid;
 }
 
