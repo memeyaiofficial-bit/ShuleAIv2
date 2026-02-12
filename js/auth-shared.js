@@ -1,5 +1,5 @@
 // Shared Authentication JavaScript for ShuleAI
-console.log("🚀 Starting to load auth-shared.js...");
+console.log(" Starting to load auth-shared.js...");
 
 // API Configuration
 const AUTH_API_BASE_URL = "https://shuleaiv1.onrender.com/api";
@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded", () => {
       if (now > expiry) {
         // Special code has expired
         alert(
-          "⏰ Your special access has expired. Please use regular payment options or contact admin for a new special code.",
+          "Your special access has expired. Please use regular payment options or contact admin for a new special code."
         );
         signOut();
         return;
@@ -175,9 +175,9 @@ function showMainApp() {
 
         let displayText = "";
         if (daysRemaining > 1) {
-          displayText = `🎁 Special Access: ${daysRemaining} days left`;
+          displayText = `Special Access: ${daysRemaining} days left`;
         } else {
-          displayText = `🎁 Special Access: ${hoursRemaining} hours left`;
+          displayText = `Special Access: ${hoursRemaining} hours left`;
         }
 
         daysRemainingElement.textContent = displayText;
@@ -192,7 +192,7 @@ function showMainApp() {
       } else {
         // Special code expired
         alert(
-          "⏰ Your special access has expired. Please use regular payment options or contact admin for a new special code.",
+          "Your special access has expired. Please use regular payment options or contact admin for a new special code."
         );
         signOut();
       }
@@ -266,10 +266,10 @@ function initializePaymentForm() {
 
         if (response.ok && data.success) {
           alert(
-            "✅ Payment submitted successfully!\n\n" +
+            "Payment submitted successfully!\n\n" +
               "Your payment is now pending admin approval.\n\n" +
               "Once approved, you will receive your access code via email.\n\n" +
-              "You can then use your email/phone and access code to sign in.",
+              "You can then use your email/phone and access code to sign in."
           );
           // Reset form
           document.getElementById("paymentSubmissionForm").reset();
@@ -281,7 +281,7 @@ function initializePaymentForm() {
       } catch (error) {
         console.error("Error:", error);
         alert(
-          "Error submitting payment. Please check your connection and try again.",
+          "Error submitting payment. Please check your connection and try again."
         );
       } finally {
         submitBtn.disabled = false;
@@ -296,7 +296,7 @@ function handleSpecialCode(
   phoneOrEmail,
   accessCode,
   submitBtn,
-  originalBtnText,
+  originalBtnText
 ) {
   // Define valid special codes with creation dates
   const validSpecialCodes = {
@@ -326,7 +326,7 @@ function handleSpecialCode(
   const codeInfo = validSpecialCodes[accessCode];
 
   if (!codeInfo) {
-    alert("❌ Invalid special code. Please check and try again.");
+    alert("Invalid special code. Please check and try again.");
     submitBtn.disabled = false;
     submitBtn.textContent = originalBtnText;
     return true; // Handled
@@ -346,10 +346,10 @@ function handleSpecialCode(
   const now = new Date();
 
   if (now > expiryDate) {
-    return res.status(401).json({
-      success: false,
-      message: `Special code "${accessCode}" has expired.\n\nIt was valid from ${createdDate.toLocaleDateString()} to ${expiryDate.toLocaleDateString()}.\n\nPlease contact admin for a new special code or use regular payment options.`,
-    });
+    alert(`Special code "${accessCode}" has expired.\n\nIt was valid from ${createdDate.toLocaleDateString()} to ${expiryDate.toLocaleDateString()}.\n\nPlease contact admin for a new special code or use regular payment options.`);
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalBtnText;
+    return true;
   }
 
   // Calculate remaining time
@@ -371,12 +371,12 @@ function handleSpecialCode(
       codeDescription: codeInfo.description,
       expiryDate: expiryDate.getTime(),
       remainingDays: remainingDays,
-    }),
+    })
   );
 
   // Success notification
   showQuickNotification(
-    `✅ Special access granted! ${remainingDays > 1 ? remainingDays + " days" : remainingHours + " hours"} remaining.`,
+    `Special access granted! ${remainingDays > 1 ? remainingDays + " days" : remainingHours + " hours"} remaining.`
   );
 
   // Close modal and show main app
@@ -404,7 +404,7 @@ function initializeSignInForm() {
             phoneOrEmail,
             accessCode,
             submitBtn,
-            originalBtnText,
+            originalBtnText
           )
         ) {
           return;
@@ -414,7 +414,7 @@ function initializeSignInForm() {
       // Validate regular code format
       if (accessCode.length !== 6 || !/^\d{6}$/.test(accessCode)) {
         alert(
-          "Please enter a valid 6-digit code or special code (SPECIAL-XXXXX)",
+          "Please enter a valid 6-digit code or special code (SPECIAL-XXXXX)"
         );
         return;
       }
@@ -443,12 +443,12 @@ function initializeSignInForm() {
           localStorage.setItem("shuleai_access_code", accessCode);
           localStorage.setItem(
             "shuleai_access_expiry",
-            data.user?.expiryDate || Date.now() + 30 * 24 * 60 * 60 * 1000,
+            data.user?.expiryDate || Date.now() + 30 * 24 * 60 * 60 * 1000
           );
           if (data.user) {
             localStorage.setItem(
               "shuleai_user_data",
-              JSON.stringify(data.user),
+              JSON.stringify(data.user)
             );
           }
 
@@ -459,8 +459,8 @@ function initializeSignInForm() {
           // Check if code expired
           if (data.message && data.message.includes("expired")) {
             const requestNew = confirm(
-              "⚠️ Your access code has expired.\n\n" +
-                "Would you like to request a new code from the admin?",
+              "Your access code has expired.\n\n" +
+                "Would you like to request a new code from the admin?"
             );
             if (requestNew) {
               requestNewCode();
@@ -468,7 +468,7 @@ function initializeSignInForm() {
           } else {
             alert(
               data.message ||
-                "Invalid code or email/phone. Please check and try again.",
+                "Invalid code or email/phone. Please check and try again."
             );
           }
         }
@@ -533,7 +533,7 @@ function updateNavigation() {
 // ============================================
 
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("🚀 ShuleAI Initialized");
+  console.log("ShuleAI Initialized");
 
   let page = window.location.hash.substring(1) || "home";
   showPage(page);
@@ -551,13 +551,13 @@ function downloadWorksheet(worksheetId) {
   const isSignedIn = localStorage.getItem("shuleai_signed_in");
 
   if (isSignedIn !== "true") {
-    alert("⚠️ Please sign in to download worksheets");
+    alert("Please sign in to download worksheets");
     openSignInModal();
     return;
   }
 
-  console.log(`📥 Downloading worksheet: ${worksheetId}`);
-  showQuickNotification(`📥 Generating ${worksheetId} PDF worksheet...`);
+  console.log(`Downloading worksheet: ${worksheetId}`);
+  showQuickNotification(`Generating ${worksheetId} PDF worksheet...`);
 
   // Function to check if jsPDF is loaded
   function checkJsPDFLoaded(callback, attempts = 0) {
@@ -568,9 +568,9 @@ function downloadWorksheet(worksheetId) {
     } else if (attempts < maxAttempts) {
       setTimeout(() => checkJsPDFLoaded(callback, attempts + 1), 100);
     } else {
-      console.error("❌ jsPDF library failed to load after waiting");
+      console.error("jsPDF library failed to load after waiting");
       showQuickNotification(
-        "⚠️ PDF library not loaded. Please refresh the page.",
+        "PDF library not loaded. Please refresh the page."
       );
       alert("PDF library not loaded. Please refresh the page and try again.");
     }
@@ -583,15 +583,15 @@ function downloadWorksheet(worksheetId) {
       let jsPDF;
       if (window.jspdf && window.jspdf.jsPDF) {
         jsPDF = window.jspdf.jsPDF;
-        console.log("✅ Using window.jspdf.jsPDF");
+        console.log("Using window.jspdf.jsPDF");
       } else if (window.jsPDF) {
         jsPDF = window.jsPDF;
-        console.log("✅ Using window.jsPDF");
+        console.log("Using window.jsPDF");
       } else {
-        console.error("❌ jsPDF not found in window object");
+        console.error("jsPDF not found in window object");
         console.log(
           "Available window properties:",
-          Object.keys(window).filter((k) => k.toLowerCase().includes("pdf")),
+          Object.keys(window).filter((k) => k.toLowerCase().includes("pdf"))
         );
         throw new Error("jsPDF library not loaded. Please refresh the page.");
       }
@@ -716,7 +716,7 @@ function downloadWorksheet(worksheetId) {
           doc.setFontSize(9);
           const expLines = doc.splitTextToSize(
             `   Explanation: ${q.explanation}`,
-            170,
+            170
           );
           expLines.forEach((line) => {
             doc.text(line, 20, yPos);
@@ -760,7 +760,7 @@ function downloadWorksheet(worksheetId) {
           `© 2025 ChezaAI - ShuleAI Platform | Page ${i} of ${pageCount}`,
           105,
           290,
-          { align: "center" },
+          { align: "center" }
         );
       }
 
@@ -768,12 +768,12 @@ function downloadWorksheet(worksheetId) {
       doc.save(`CBC_${worksheetId}_Worksheet.pdf`);
 
       setTimeout(() => {
-        showQuickNotification(`✅ ${worksheetId} worksheet downloaded!`);
+        showQuickNotification(`${worksheetId} worksheet downloaded!`);
       }, 500);
     } catch (error) {
       console.error("PDF generation error:", error);
       showQuickNotification(
-        "⚠️ Error generating PDF. Opening printable version instead...",
+        "Error generating PDF. Opening printable version instead..."
       );
 
       // Fallback to HTML worksheet
@@ -806,7 +806,7 @@ function openPrintableWorksheet(worksheetId) {
   </style>
 </head>
 <body>
-  <button class="print-btn no-print" onclick="window.print()">🖨️ Print Worksheet</button>
+  <button class="print-btn no-print" onclick="window.print()">Print Worksheet</button>
   <div class="header"><h1>ChezaAI - ShuleAI</h1><h2>CBC ${worksheetId} Worksheet</h2></div>
   <div style="margin: 20px 0; padding: 15px; background: #f0f0f0; border-radius: 5px;">
     <strong>Subject:</strong> ${worksheetId}<br><strong>Date:</strong> ${date}<br><strong>Student Name:</strong> _______________________________
@@ -819,7 +819,7 @@ function openPrintableWorksheet(worksheetId) {
       (q, i) =>
         `<div class="question"><strong>Question ${i + 1}:</strong> ${
           q.question
-        }<br><div style="margin-top:15px;padding:10px;background:white;min-height:60px;border:1px dashed #ccc;"><strong>Answer:</strong></div></div>`,
+        }<br><div style="margin-top:15px;padding:10px;background:white;min-height:60px;border:1px dashed #ccc;"><strong>Answer:</strong></div></div>`
     )
     .join("")}
   <div class="answer-section">
@@ -829,7 +829,7 @@ function openPrintableWorksheet(worksheetId) {
         (q, i) =>
           `<div class="question"><strong>${i + 1}.</strong> ${
             q.answer
-          }<br><em style="color:#666;">Explanation: ${q.explanation}</em></div>`,
+          }<br><em style="color:#666;">Explanation: ${q.explanation}</em></div>`
       )
       .join("")}
   </div>
@@ -844,7 +844,7 @@ function openPrintableWorksheet(worksheetId) {
     printWindow.document.write(worksheet);
     printWindow.document.close();
     showQuickNotification(
-      `✅ ${worksheetId} worksheet opened! You can now print it.`,
+      `${worksheetId} worksheet opened! You can now print it.`
     );
   } else {
     alert("Please allow popups to view worksheets");
@@ -958,8 +958,7 @@ function generateWorksheetQuestions(subject) {
         explanation: '"Go" becomes "went" in past tense',
       },
       {
-        question:
-          'Write a sentence using the word "beautiful" as an adjective.',
+        question: 'Write a sentence using the word "beautiful" as an adjective.',
         answer: "Example: The beautiful flower bloomed in the garden.",
         explanation: "Adjectives describe nouns",
       },
@@ -981,7 +980,8 @@ function generateWorksheetQuestions(subject) {
         explanation: "Matter exists in these three main states",
       },
       {
-        question: "Label the parts of a plant: root, stem, leaf, flower, fruit",
+        question:
+          "Label the parts of a plant: root, stem, leaf, flower, fruit",
         answer: "Diagram should show all five parts correctly labeled",
         explanation: "Each part has a specific function",
       },
@@ -1059,27 +1059,31 @@ function generateWorksheetQuestions(subject) {
 }
 
 function printWorksheet(worksheetId) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to print worksheets");
+    showQuickNotification("Subscribe to print worksheets");
     return;
   }
 
-  console.log(`🖨️ Printing worksheet: ${worksheetId}`);
-  showQuickNotification(`🖨️ Preparing ${worksheetId} for printing...`);
+  console.log(`Printing worksheet: ${worksheetId}`);
+  showQuickNotification(`Preparing ${worksheetId} for printing...`);
 
   setTimeout(() => {
     alert(
-      `Print dialog would open for "${worksheetId}" worksheet.\n\nIn production, this will:\n- Open the PDF in a new window\n- Trigger the browser's print dialog\n- Allow printer selection and settings`,
+      `Print dialog would open for "${worksheetId}" worksheet.\n\nIn production, this will:\n- Open the PDF in a new window\n- Trigger the browser's print dialog\n- Allow printer selection and settings`
     );
   }, 500);
 }
 
 // Teachers Hub Functions
 function viewLessonPlans(subject) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to access lesson plans");
+    showQuickNotification("Subscribe to access lesson plans");
     return;
   }
 
@@ -1091,7 +1095,7 @@ function viewLessonPlans(subject) {
   };
 
   const subjectName = subjectNames[subject] || subject;
-  showQuickNotification(`📋 Generating ${subjectName} lesson plans PDF...`);
+  showQuickNotification(`Generating ${subjectName} lesson plans PDF...`);
 
   try {
     if (typeof window.jspdf === "undefined") {
@@ -1277,7 +1281,7 @@ function viewLessonPlans(subject) {
         `© 2025 ChezaAI - ShuleAI Platform | CBC Lesson Plans | Page ${i} of ${pageCount}`,
         105,
         290,
-        { align: "center" },
+        { align: "center" }
       );
     }
 
@@ -1285,11 +1289,11 @@ function viewLessonPlans(subject) {
     doc.save(`CBC_${subjectName}_Lesson_Plans.pdf`);
 
     setTimeout(() => {
-      showQuickNotification(`✅ ${subjectName} lesson plans downloaded!`);
+      showQuickNotification(`${subjectName} lesson plans downloaded!`);
     }, 800);
   } catch (error) {
     console.error("PDF generation error:", error);
-    showQuickNotification("⚠️ Error generating PDF. Please try again.");
+    showQuickNotification("Error generating PDF. Please try again.");
   }
 }
 
@@ -1466,9 +1470,11 @@ function getWeeklyLessons(subject) {
 }
 
 function downloadAssessment(type) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to download assessment tools");
+    showQuickNotification("Subscribe to download assessment tools");
     return;
   }
 
@@ -1480,7 +1486,7 @@ function downloadAssessment(type) {
   };
 
   const assessmentName = assessmentNames[type] || type;
-  showQuickNotification(`📥 Generating ${assessmentName} PDF...`);
+  showQuickNotification(`Generating ${assessmentName} PDF...`);
 
   try {
     if (typeof window.jspdf === "undefined") {
@@ -1512,13 +1518,13 @@ function downloadAssessment(type) {
     doc.text(
       "This tool aligns with CBC competency-based assessment principles.",
       20,
-      yPos,
+      yPos
     );
     yPos += 6;
     doc.text(
       "Designed for holistic evaluation of learner progress and achievement.",
       20,
-      yPos,
+      yPos
     );
     yPos += 12;
 
@@ -1777,7 +1783,7 @@ function downloadAssessment(type) {
         `© 2025 ChezaAI - ShuleAI Platform | ${assessmentName} | Page ${i} of ${pageCount}`,
         105,
         290,
-        { align: "center" },
+        { align: "center" }
       );
     }
 
@@ -1785,18 +1791,20 @@ function downloadAssessment(type) {
     doc.save(`CBC_${type}_Assessment.pdf`);
 
     setTimeout(() => {
-      showQuickNotification(`✅ ${assessmentName} downloaded!`);
+      showQuickNotification(`${assessmentName} downloaded!`);
     }, 1000);
   } catch (error) {
     console.error("PDF generation error:", error);
-    showQuickNotification("⚠️ Error generating PDF. Please try again.");
+    showQuickNotification("Error generating PDF. Please try again.");
   }
 }
 
 function startTraining(courseType) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to access training courses");
+    showQuickNotification("Subscribe to access training courses");
     return;
   }
 
@@ -1806,13 +1814,15 @@ function startTraining(courseType) {
     digital: "Digital Literacy Training",
   };
 
-  showQuickNotification(`🎓 Loading ${courseNames[courseType]}...`);
+  showQuickNotification(`Loading ${courseNames[courseType]}...`);
 }
 
 function accessResource(resourceType) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to access teaching resources");
+    showQuickNotification("Subscribe to access teaching resources");
     return;
   }
 
@@ -1825,17 +1835,19 @@ function accessResource(resourceType) {
     "record-keeping": "Record Keeping Tools",
   };
 
-  showQuickNotification(`🛠️ Loading ${resourceNames[resourceType]}...`);
+  showQuickNotification(`Loading ${resourceNames[resourceType]}...`);
 }
 
 function joinCommunity(platform) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to join teacher community");
+    showQuickNotification("Subscribe to join teacher community");
     return;
   }
 
-  showQuickNotification(`💬 Connecting to community...`);
+  showQuickNotification(`Connecting to community...`);
 }
 
 // Parents Hub Functions
@@ -1846,47 +1858,55 @@ function viewParentGuide(guideType) {
     milestones: "Grade Level Milestones",
   };
 
-  showQuickNotification(`📥 Downloading ${guideNames[guideType]}...`);
+  showQuickNotification(`Downloading ${guideNames[guideType]}...`);
 }
 
 function viewDetailedProgress() {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to view progress reports");
+    showQuickNotification("Subscribe to view progress reports");
     return;
   }
 
-  showQuickNotification("📊 Loading progress reports...");
+  showQuickNotification("Loading progress reports...");
 }
 
 function viewHomeActivities(activityType) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to access home activities");
+    showQuickNotification("Subscribe to access home activities");
     return;
   }
 
-  showQuickNotification(`🏠 Loading activities...`);
+  showQuickNotification(`Loading activities...`);
 }
 
 function viewParentingTips(tipCategory) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to access parenting tips");
+    showQuickNotification("Subscribe to access parenting tips");
     return;
   }
 
-  showQuickNotification(`💡 Loading tips...`);
+  showQuickNotification(`Loading tips...`);
 }
 
 function joinParentCommunity(platform) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to join parent community");
+    showQuickNotification("Subscribe to join parent community");
     return;
   }
 
-  showQuickNotification(`👥 Connecting to community...`);
+  showQuickNotification(`Connecting to community...`);
 }
 
 function toggleFAQ(faqId) {
@@ -1917,40 +1937,44 @@ function toggleFAQ(faqId) {
 
 // Grade Levels & Subjects Functions
 function exploreGrade(gradeLevel) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to access grade resources");
+    showQuickNotification("Subscribe to access grade resources");
     return;
   }
 
-  showQuickNotification(`📚 Loading ${gradeLevel} resources...`);
+  showQuickNotification(`Loading ${gradeLevel} resources...`);
 }
 
 function exploreSubject(subjectName) {
-  if (!currentUser || currentUser.daysRemaining <= 0) {
+  const isSignedIn = localStorage.getItem("shuleai_signed_in");
+
+  if (isSignedIn !== "true") {
     openPaymentModal();
-    showQuickNotification("⚠️ Subscribe to access subject resources");
+    showQuickNotification("Subscribe to access subject resources");
     return;
   }
 
-  showQuickNotification(`📚 Loading ${subjectName} resources...`);
+  showQuickNotification(`Loading ${subjectName} resources...`);
 }
 
 // Toggle Games Function - Show/Hide additional games
-console.log("📝 About to define toggleGames function...");
+console.log(" About to define toggleGames function...");
 function toggleGames(category) {
-  console.log("🎮 toggleGames called with category:", category);
+  console.log("toggleGames called with category:", category);
 
   try {
     const hiddenGames = document.querySelectorAll(
-      `.hidden-games[data-category="${category}"]`,
+      `.hidden-games[data-category="${category}"]`
     );
     const button = document.querySelector(
-      `button[onclick="toggleGames('${category}')"]`,
+      `button[onclick="toggleGames('${category}')"]`
     );
 
     if (!button) {
-      console.error("❌ Button not found for category:", category);
+      console.error("Button not found for category:", category);
       return;
     }
 
@@ -1958,7 +1982,7 @@ function toggleGames(category) {
     const text = button.querySelector(".see-all-text");
 
     if (!arrow || !text) {
-      console.error("❌ Arrow or text element not found in button");
+      console.error("Arrow or text element not found in button");
       return;
     }
 
@@ -2006,7 +2030,7 @@ function toggleGames(category) {
       }
     }
   } catch (error) {
-    console.error("❌ Error in toggleGames:", error);
+    console.error("Error in toggleGames:", error);
     alert("An error occurred. Please refresh the page and try again.");
   }
 }
@@ -2017,8 +2041,8 @@ window.toggleGames = toggleGames;
 // Additional safety check
 document.addEventListener("DOMContentLoaded", function () {
   console.log(
-    "✅ DOM loaded, toggleGames available:",
-    typeof window.toggleGames !== "undefined",
+    "DOM loaded, toggleGames available:",
+    typeof window.toggleGames !== "undefined"
   );
 });
 
@@ -2056,8 +2080,8 @@ To activate this code, add it to the validSpecialCodes object in handleSpecialCo
 }
 
 // End of file - confirm everything loaded
-console.log("✅ auth-shared.js loaded completely!");
-console.log("📋 Functions defined:", {
+console.log("auth-shared.js loaded completely!");
+console.log("Functions defined:", {
   toggleGames: typeof toggleGames !== "undefined",
   showQuickNotification: typeof showQuickNotification !== "undefined",
   openSignInModal: typeof openSignInModal !== "undefined",
